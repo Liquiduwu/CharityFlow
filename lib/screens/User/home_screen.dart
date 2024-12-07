@@ -4,6 +4,7 @@ import 'history_screen.dart';
 import 'donation_screen.dart';
 import 'view_requests_screen.dart';
 import 'chat_help_screen.dart';
+import 'crowdfunding_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -158,6 +159,31 @@ class HomeContent extends StatelessWidget {
               },
               child: const Text(
                 "View Requests",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                foregroundColor: Colors.white,
+                minimumSize: const Size(double.infinity, 56),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                elevation: 2,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CrowdfundingScreen()),
+                );
+              },
+              child: const Text(
+                "Crowdfunding",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

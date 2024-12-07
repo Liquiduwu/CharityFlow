@@ -24,12 +24,13 @@ class _CourierSettingsScreenState extends State<CourierSettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Courier Settings"),
+        title: const Text("Settings"),
       ),
       body: ListView(
         children: [
           ListTile(
             title: const Text("Dark/Light Mode"),
+            leading: const Icon(Icons.brightness_6),
             trailing: Switch(
               value: _isDarkMode,
               onChanged: _toggleDarkMode,
@@ -37,12 +38,14 @@ class _CourierSettingsScreenState extends State<CourierSettingsScreen> {
           ),
           ListTile(
             title: const Text("Notifications"),
+            leading: const Icon(Icons.notifications),
             onTap: () {
               // Handle Notifications settings
             },
           ),
           ListTile(
             title: const Text("Language"),
+            leading: const Icon(Icons.language),
             onTap: () {
               Navigator.push(
                 context,

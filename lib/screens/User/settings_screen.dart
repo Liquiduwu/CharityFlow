@@ -3,6 +3,7 @@ import 'package:prototype3/screens/User/saved_addresses_screen.dart';
 import 'package:prototype3/theme/theme_provider.dart';
 import 'language_screen.dart';
 import 'package:provider/provider.dart';
+import 'saved_billings_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -31,6 +32,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: [
           ListTile(
             title: const Text("Dark/Light Mode"),
+            leading: const Icon(Icons.brightness_6),
             trailing: Switch(
               value: _isDarkMode,
               onChanged: _toggleDarkMode,
@@ -38,12 +40,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           ListTile(
             title: const Text("Notifications"),
+            leading: const Icon(Icons.notifications),
             onTap: () {
               // Handle Notifications settings
             },
           ),
           ListTile(
             title: const Text("Language"),
+            leading: const Icon(Icons.language),
             onTap: () {
               Navigator.push(
                 context,
@@ -53,10 +57,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           ListTile(
             title: const Text("Saved Addresses"),
+            leading: const Icon(Icons.location_on),
             onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const SavedAddressesScreen(),
-            ),
-            );
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const SavedAddressesScreen(),
+              ),
+              );
+            },
+          ),
+          ListTile(
+            title: const Text("Saved Billings"),
+            leading: const Icon(Icons.credit_card),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SavedBillingsScreen()),
+              );
             },
           ),
         ],
