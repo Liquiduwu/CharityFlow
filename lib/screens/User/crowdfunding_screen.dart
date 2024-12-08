@@ -30,11 +30,11 @@ class CrowdfundingScreen extends StatelessWidget {
         'amount': 5000.0,
         'date': '2024-03-17',
       },
-      {
-        'name': 'Ahmed Kamal',
-        'amount': 10000.0,
-        'date': '2024-03-16',
-      },
+    {
+      'name': 'Ahmed Kamal',
+      'amount': 10000.0,
+      'date': '2024-03-16',
+    },
     ];
 
     return Scaffold(

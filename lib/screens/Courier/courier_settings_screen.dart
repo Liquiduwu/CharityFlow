@@ -22,38 +22,121 @@ class _CourierSettingsScreenState extends State<CourierSettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeProvider>(context);
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings"),
+        title: const Text(
+          "Settings",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: theme.getTheme().colorScheme.primary,
       ),
-      body: ListView(
-        children: [
-          ListTile(
-            title: const Text("Dark/Light Mode"),
-            leading: const Icon(Icons.brightness_6),
-            trailing: Switch(
-              value: _isDarkMode,
-              onChanged: _toggleDarkMode,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.white,
+              theme.getTheme().colorScheme.primary.withOpacity(0.1),
+            ],
+          ),
+        ),
+        child: ListView(
+          padding: const EdgeInsets.all(16.0),
+          children: [
+            Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      "Dark/Light Mode",
+                      style: TextStyle(
+                        color: theme.getTheme().colorScheme.onBackground,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.brightness_6,
+                      color: theme.getTheme().colorScheme.primary,
+                    ),
+                    trailing: Switch(
+                      value: _isDarkMode,
+                      onChanged: _toggleDarkMode,
+                      activeColor: theme.getTheme().colorScheme.primary,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          ListTile(
-            title: const Text("Notifications"),
-            leading: const Icon(Icons.notifications),
-            onTap: () {
-              // Handle Notifications settings
-            },
-          ),
-          ListTile(
-            title: const Text("Language"),
-            leading: const Icon(Icons.language),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const CourierLanguageScreen()),
-              );
-            },
-          ),
-        ],
+            const SizedBox(height: 12),
+            Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      "Notifications",
+                      style: TextStyle(
+                        color: theme.getTheme().colorScheme.onBackground,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.notifications,
+                      color: theme.getTheme().colorScheme.primary,
+                    ),
+                    trailing: Icon(
+                      Icons.chevron_right,
+                      color: theme.getTheme().colorScheme.primary,
+                    ),
+                    onTap: () {
+                      // Handle Notifications settings
+                    },
+                  ),
+                  Divider(
+                    height: 1,
+                    color: theme.getTheme().colorScheme.outline.withOpacity(0.2),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Language",
+                      style: TextStyle(
+                        color: theme.getTheme().colorScheme.onBackground,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.language,
+                      color: theme.getTheme().colorScheme.primary,
+                    ),
+                    trailing: Icon(
+                      Icons.chevron_right,
+                      color: theme.getTheme().colorScheme.primary,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const CourierLanguageScreen()),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

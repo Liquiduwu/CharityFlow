@@ -13,7 +13,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _isDarkMode = false; // State variable for dark mode
+  bool _isDarkMode = false;
 
   void _toggleDarkMode(bool? value) {
     Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
@@ -24,57 +24,182 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeProvider>(context);
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings"),
+        title: const Text(
+          "Settings",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: theme.getTheme().colorScheme.primary,
       ),
-      body: ListView(
-        children: [
-          ListTile(
-            title: const Text("Dark/Light Mode"),
-            leading: const Icon(Icons.brightness_6),
-            trailing: Switch(
-              value: _isDarkMode,
-              onChanged: _toggleDarkMode,
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.white,
+              theme.getTheme().colorScheme.primary.withOpacity(0.1),
+            ],
           ),
-          ListTile(
-            title: const Text("Notifications"),
-            leading: const Icon(Icons.notifications),
-            onTap: () {
-              // Handle Notifications settings
-            },
-          ),
-          ListTile(
-            title: const Text("Language"),
-            leading: const Icon(Icons.language),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const LanguageScreen()),
-              );
-            },
-          ),
-          ListTile(
-            title: const Text("Saved Addresses"),
-            leading: const Icon(Icons.location_on),
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const SavedAddressesScreen(),
+        ),
+        child: ListView(
+          padding: const EdgeInsets.all(16.0),
+          children: [
+            Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
               ),
-              );
-            },
-          ),
-          ListTile(
-            title: const Text("Saved Billings"),
-            leading: const Icon(Icons.credit_card),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SavedBillingsScreen()),
-              );
-            },
-          ),
-        ],
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      "Dark/Light Mode",
+                      style: TextStyle(
+                        color: theme.getTheme().colorScheme.onBackground,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.brightness_6,
+                      color: theme.getTheme().colorScheme.primary,
+                    ),
+                    trailing: Switch(
+                      value: _isDarkMode,
+                      onChanged: _toggleDarkMode,
+                      activeColor: theme.getTheme().colorScheme.primary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      "Notifications",
+                      style: TextStyle(
+                        color: theme.getTheme().colorScheme.onBackground,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.notifications,
+                      color: theme.getTheme().colorScheme.primary,
+                    ),
+                    trailing: Icon(
+                      Icons.chevron_right,
+                      color: theme.getTheme().colorScheme.primary,
+                    ),
+                    onTap: () {
+                      // Handle Notifications settings
+                    },
+                  ),
+                  Divider(
+                    height: 1,
+                    color: theme.getTheme().colorScheme.outline.withOpacity(0.2),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Language",
+                      style: TextStyle(
+                        color: theme.getTheme().colorScheme.onBackground,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.language,
+                      color: theme.getTheme().colorScheme.primary,
+                    ),
+                    trailing: Icon(
+                      Icons.chevron_right,
+                      color: theme.getTheme().colorScheme.primary,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LanguageScreen()),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      "Saved Addresses",
+                      style: TextStyle(
+                        color: theme.getTheme().colorScheme.onBackground,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.location_on,
+                      color: theme.getTheme().colorScheme.primary,
+                    ),
+                    trailing: Icon(
+                      Icons.chevron_right,
+                      color: theme.getTheme().colorScheme.primary,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const SavedAddressesScreen()),
+                      );
+                    },
+                  ),
+                  Divider(
+                    height: 1,
+                    color: theme.getTheme().colorScheme.outline.withOpacity(0.2),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Saved Billings",
+                      style: TextStyle(
+                        color: theme.getTheme().colorScheme.onBackground,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.credit_card,
+                      color: theme.getTheme().colorScheme.primary,
+                    ),
+                    trailing: Icon(
+                      Icons.chevron_right,
+                      color: theme.getTheme().colorScheme.primary,
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const SavedBillingsScreen()),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
