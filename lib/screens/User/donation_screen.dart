@@ -32,6 +32,7 @@ class _DonationScreenState extends State<DonationScreen> {
   String? cvv;
   String? paypalEmail;
   String? paypalPassword;
+  String? cashAmount;
 
   @override
   void initState() {
@@ -115,12 +116,23 @@ class _DonationScreenState extends State<DonationScreen> {
       }
     }
 
+    // Add validation for cash amount
+    if (selectedPaymentMethod == 'Cash' && (cashAmount == null || cashAmount!.isEmpty)) {
+      _showErrorDialog("Please enter the cash amount.");
+      return;
+    }
+
     // If all fields are valid, print the form data
     print('Selected Categories: ${selectedCategories.entries.where((entry) => entry.value).map((entry) => entry.key).toList()}');
     print('Weight: $weight');
     print('Description: $description');
     print('Order Time: ${selectedTime?.format(context)}');
     print('Payment Method: $selectedPaymentMethod');
+
+    // Add cash amount to the printed form data
+    if (selectedPaymentMethod == 'Cash') {
+      print('Cash Amount: $cashAmount EGP');
+    }
 
     // Navigate back to HomeScreen after successful submission
     Navigator.pushReplacement(
@@ -312,6 +324,33 @@ class _DonationScreenState extends State<DonationScreen> {
     );
   }
 
+  Widget _buildCashField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 16),
+        TextField(
+          decoration: InputDecoration(
+            labelText: "Cash Amount (EGP)",
+            labelStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
+            ),
+          ),
+          keyboardType: TextInputType.number,
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly,
+          ],
+          onChanged: (value) {
+            setState(() {
+              cashAmount = value;
+            });
+          },
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -416,6 +455,7 @@ class _DonationScreenState extends State<DonationScreen> {
               }).toList(),
             ),
             // Add appropriate fields based on payment method
+            if (selectedPaymentMethod == 'Cash') _buildCashField(),
             if (selectedPaymentMethod == 'Credit Card') _buildCreditCardFields(),
             if (selectedPaymentMethod == 'PayPal') _buildPayPalFields(),
             const SizedBox(height: 20),
